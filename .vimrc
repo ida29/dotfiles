@@ -52,10 +52,13 @@ nnoremap <Space>j ]]
 nnoremap <Space>k [[
 nnoremap <Space>l $
 nnoremap <expr> <Space>m ':marks'
+nnoremap <F7> [c
+nnoremap <F8> ]c
 vnoremap j gj
 vnoremap k gk
 vnoremap gj j
 vnoremap gk k
+
 
 syntax enable
 set background=dark
