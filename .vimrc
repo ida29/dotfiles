@@ -57,10 +57,9 @@ vnoremap k gk
 vnoremap gj j
 vnoremap gk k
 
-set t_Co=256
+syntax enable
 set background=dark
-colorscheme hybrid
-syntax on
+colorscheme solarized
 
 autocmd guard VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd guard WinLeave * setlocal nocursorline
