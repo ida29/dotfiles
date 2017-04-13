@@ -132,7 +132,6 @@ if executable('ag')
 		nnoremap <silent> <Space>e :<C-u>Unite file_rec/async:!<CR>
 endif
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
 nnoremap <silent> <Space>i :<C-u>Unite file_include<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
