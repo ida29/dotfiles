@@ -100,6 +100,9 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
 call dein#add('Shougo/dein.vim')
+if has( "mac" || "linux" )
+		call dein#add('Shougo/vimproc.vim', { 'build' : { 'mac' : 'make', 'linux' : 'make'}, })
+endif
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
@@ -121,7 +124,16 @@ let g:unite_source_file_mru_limit = 200
 nnoremap <silent> <Space>b :<C-u>Unite buffer<CR>
 nnoremap <silent> <Space>f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> <Space>r :<C-u>Unite -buffer-name=register register<CR>
+nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
+if executable('ag')
+		let g:unite_source_grep_command = 'ag'
+		let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
+		let g:unite_source_grep_recursive_opt = ''
+		nnoremap <silent> <Space>e :<C-u>Unite file_rec/async:!<CR>
+endif
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Space>e :<C-u>Unite file_rec/async:!<CR>
+nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
+nnoremap <silent> <Space>i :<C-u>Unite file_include<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
+au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
