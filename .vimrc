@@ -3,7 +3,7 @@ set fileencodings=iso-2022-jp,euc-jp,sjis,utf-8
 set fileformats=unix,dos,mac
 
 augroup guard
-  autocmd!
+		autocmd!
 augroup END
 
 set number
@@ -37,25 +37,29 @@ set paste
 set wildmenu
 set listchars=tab:>\ ,eol:<
 set list
+set backspace=indent,eol,start
 
 inoremap <C-c> <Esc>
+nnoremap p "0p
+nnoremap P "0P
 nnoremap Y y$
 nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>e ':e ./**/'
 nnoremap <expr> <Space>g ':grep --include=*.{c,h} -r ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]
 nnoremap <Space>k [[
 nnoremap <Space>l $
-nnoremap <F7> [c
-nnoremap <F8> ]c
 vnoremap j gj
 vnoremap k gk
 vnoremap gj j
 vnoremap gk k
+
+if &diff
+		nnoremap <Space><Space>  ]c
+endif
 
 set t_Co=256
 syntax enable
@@ -75,8 +79,8 @@ autocmd guard WinLeave * setlocal nocursorline
 
 set splitright
 if !exists(":DiffOrig")
-  command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-        \ | wincmd p | diffthis
+		command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+								\ | wincmd p | diffthis
 endif
 
 "netrw
@@ -89,30 +93,35 @@ let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
-  execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
+		execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
 endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
-
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
-
+call dein#add('Shougo/neoyank.vim')
 call dein#end()
 
 if dein#check_install()
-  call dein#install()
+		call dein#install()
 endif
+
+call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 filetype plugin indent on
 
 "unite
-let g:unite_enable_start_insert=0
+let g:unite_enable_start_insert=1
+let g:unite_source_history_yank_enable =1
+let g:unite_source_file_mru_limit = 200
+
 nnoremap <silent> <Space>b :<C-u>Unite buffer<CR>
 nnoremap <silent> <Space>f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> <Space>r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Space>u :<C-u>Unite buffer file_mru<CR>
+nnoremap <silent> <Space>e :<C-u>Unite file_rec/async:!<CR>
+nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
