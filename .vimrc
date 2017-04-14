@@ -58,7 +58,7 @@ vnoremap gj j
 vnoremap gk k
 
 if &diff
-		nnoremap <Space><Space>  ]c
+		nnoremap <Space><Space> ]c
 endif
 
 set t_Co=256
@@ -100,8 +100,8 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
 call dein#add('Shougo/dein.vim')
-if has( "mac" || "linux" )
-		call dein#add('Shougo/vimproc.vim', { 'build' : { 'mac' : 'make', 'linux' : 'make'}, })
+if has ('mac') || has ('unix')
+		call dein#add('Shougo/vimproc.vim', {'build':'make'})
 endif
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
@@ -111,8 +111,6 @@ call dein#end()
 if dein#check_install()
 		call dein#install()
 endif
-
-call map(dein#check_clean(), "delete(v:val, 'rf')")
 
 filetype plugin indent on
 
@@ -129,10 +127,9 @@ if executable('ag')
 		let g:unite_source_grep_command = 'ag'
 		let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
 		let g:unite_source_grep_recursive_opt = ''
-		nnoremap <silent> <Space>e :<C-u>Unite file_rec/async:!<CR>
+		nnoremap <silent> <Space>a :<C-u>Unite file_rec/async:!<CR>
 endif
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>i :<C-u>Unite file_include<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
-nnoremap <silent> <Space>a :<C-u>UniteWithBufferDir -buffer-name=files buffer file_mru bookmark file<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
