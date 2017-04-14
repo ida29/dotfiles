@@ -100,9 +100,7 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
 call dein#add('Shougo/dein.vim')
-if has ('mac') || has ('unix')
-		call dein#add('Shougo/vimproc.vim', {'build':'make'})
-endif
+call dein#add('Shougo/vimproc.vim', {'build':'make'})
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
