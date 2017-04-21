@@ -41,6 +41,7 @@ set list
 set backspace=indent,eol,start
 
 inoremap <C-c> <Esc>
+nnoremap <C-c><C-c> :noh<CR>
 nnoremap p "0p
 nnoremap P "0P
 nnoremap Y y$
@@ -58,10 +59,6 @@ vnoremap k gk
 vnoremap gj j
 vnoremap gk k
 
-if &diff
-		nnoremap <Space><Space> ]c
-endif
-
 set t_Co=256
 syntax enable
 set background=dark
@@ -72,10 +69,13 @@ autocmd guard WinLeave * setlocal nocursorline
 
 autocmd guard QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen |  endif
 
-set splitright
-if !exists(":DiffOrig")
-		command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-								\ | wincmd p | diffthis
+if &diff
+		set splitright
+		nnoremap <Space><Space> ]c
+		if !exists(":DiffOrig")
+				command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+										\ | wincmd p | diffthis
+		endif
 endif
 
 "dein
