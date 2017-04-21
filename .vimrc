@@ -21,8 +21,9 @@ set statusline+=%r
 set statusline+=%h
 set statusline+=%w
 set statusline+=%=
-set statusline+=[ENC=%{&fileencoding}]
-set statusline+=[LOW=%l/%L]
+set statusline+=[%{&ff}]
+set statusline+=[%{&fileencoding}]
+set statusline+=[%l/%L]
 set laststatus=2
 set hidden
 set history=300
