@@ -71,21 +71,11 @@ autocmd guard WinLeave * setlocal nocursorline
 
 autocmd guard QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen |  endif
 
-autocmd guard VimEnter,BufWinEnter,WinEnter * let cxout='ctags -x ' . expand("%:p") . "| grep -e \"function\" -e \"macro\" | awk '{print $4\"|\"$3\"|\",$1}'"
-nnoremap <expr> cx ':cexpr system(cxout)'
-
-autocmd guard VimEnter,BufWinEnter,WinEnter * setlocal cursorline
-autocmd guard WinLeave * setlocal nocursorline
-
 set splitright
 if !exists(":DiffOrig")
 		command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 								\ | wincmd p | diffthis
 endif
-
-"netrw
-let g:netrw_altv = 1
-let g:netrw_alto = 1
 
 "dein
 let s:dein_dir = expand('~/.vim/dein')
@@ -99,10 +89,10 @@ execute 'set runtimepath^=' . s:dein_repo_dir
 
 call dein#begin(s:dein_dir)
 call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/vimproc.vim', {'build':'make'})
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
+call dein#add('Shougo/unite-outline')
 call dein#end()
 
 if dein#check_install()
@@ -120,13 +110,7 @@ nnoremap <silent> <Space>b :<C-u>Unite buffer<CR>
 nnoremap <silent> <Space>f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> <Space>r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
-if executable('ag')
-		let g:unite_source_grep_command = 'ag'
-		let g:unite_source_grep_default_opts = '--nogroup --nocolor --column'
-		let g:unite_source_grep_recursive_opt = ''
-		nnoremap <silent> <Space>a :<C-u>Unite file_rec/async:!<CR>
-endif
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
-nnoremap <silent> <Space>i :<C-u>Unite file_include<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
+nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
