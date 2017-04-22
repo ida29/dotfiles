@@ -41,7 +41,6 @@ set list
 set backspace=indent,eol,start
 
 inoremap <C-c> <Esc>
-nnoremap <C-c><C-c> :noh<CR>
 nnoremap p "0p
 nnoremap P "0P
 nnoremap Y y$
