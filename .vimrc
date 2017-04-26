@@ -53,6 +53,7 @@ nnoremap <Space>h 0
 nnoremap <Space>j ]]
 nnoremap <Space>k [[
 nnoremap <Space>l $
+nnoremap <Space>t <C-]>
 vnoremap j gj
 vnoremap k gk
 vnoremap gj j
