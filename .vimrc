@@ -48,7 +48,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>g ':grep --include=*.{c,h} -r ' . expand('<cword>') . ' .'
+nnoremap <expr> <Space>g ':grep --include=*.{c,h} -ra ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]
 nnoremap <Space>k [[
