@@ -50,8 +50,8 @@ nnoremap gj j
 nnoremap gk k
 nnoremap <expr> <Space>g ':grep --include=*.{c,h} -ra ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
-nnoremap <Space>j ]]
-nnoremap <Space>k [[
+nnoremap <Space>j ]]zz
+nnoremap <Space>k [[zz
 nnoremap <Space>l $
 nnoremap <Space>t <C-]>
 vnoremap j gj
