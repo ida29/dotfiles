@@ -71,7 +71,7 @@ autocmd guard QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0
 
 if &diff
 		set splitright
-		nnoremap <Space><Space> ]c
+		nnoremap <Space><Space> ]czz
 		if !exists(":DiffOrig")
 				command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
 										\ | wincmd p | diffthis
