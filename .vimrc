@@ -115,3 +115,8 @@ nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
+
+"fish
+if &shell =~# 'fish$'
+    set shell=sh
+endif
