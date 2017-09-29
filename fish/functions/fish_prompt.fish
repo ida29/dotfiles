@@ -7,8 +7,7 @@ function fish_prompt
     echo -n (set_color white)(prompt_pwd)
 
     set last_status $status
-    printf '%s ' (__fish_git_prompt)
-    set_color normal
+    printf '%s\n' (__fish_git_prompt)
 
     echo -n (set_color white)'$ '
 end
