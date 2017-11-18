@@ -39,6 +39,7 @@ set wildmenu
 set listchars=tab:>\ ,eol:<
 set list
 set backspace=indent,eol,start
+set clipboard+=unnamedplus,unnamed
 
 inoremap <C-c> <Esc>
 nnoremap p "0p
