@@ -78,6 +78,11 @@ if &diff
 		endif
 endif
 
+"fish
+if &shell =~# 'fish$'
+    set shell=sh
+endif
+
 "dein
 let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
@@ -94,6 +99,7 @@ call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('Shougo/unite-outline')
+call dein#add('fatih/vim-go')
 call dein#end()
 
 if dein#check_install()
@@ -116,7 +122,3 @@ nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
 
-"fish
-if &shell =~# 'fish$'
-    set shell=sh
-endif
