@@ -41,6 +41,8 @@ set backspace=indent,eol,start
 set clipboard+=unnamedplus,unnamed
 
 inoremap <C-c> <Esc>
+nnoremap ; :
+nnoremap : ;
 nnoremap p "0p
 nnoremap P "0P
 nnoremap Y y$
