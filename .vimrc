@@ -50,7 +50,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,go} -r ' . expand('<cword>') . ' .'
+nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,go,html,css,scss,js,erb} -r ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
@@ -102,6 +102,7 @@ call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('Shougo/unite-outline')
 call dein#add('fatih/vim-go')
+call dein#add('mattn/emmet-vim')
 call dein#end()
 
 if dein#check_install()
@@ -113,13 +114,15 @@ filetype plugin indent on
 "vim-go
 let g:go_version_warning = 0
 
+"emmet-vim
+let g:user_emmet_leader_key = '<Space>'
+
 "unite
 let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 
 nnoremap <silent> <Space>b :<C-u>Unite buffer<CR>
-nnoremap <silent> <Space>f :<C-u>UniteWithBufferDir -buffer-name=files file<CR>
 nnoremap <silent> <Space>r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
 nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
