@@ -50,7 +50,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,go,html,css,scss,js,erb,php,sql,rs,sh,tpl} -r ' . expand('<cword>') . ' .'
+nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,py,go,html,css,scss,js,erb,php,sql,rs,sh,tpl} -r ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
@@ -115,7 +115,7 @@ filetype plugin indent on
 let g:go_version_warning = 0
 
 "emmet-vim
-let g:user_emmet_leader_key = '<Space>'
+let g:user_emmet_leader_key = '<C-y>'
 
 "unite
 let g:unite_enable_start_insert=1
