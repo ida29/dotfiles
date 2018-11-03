@@ -2,10 +2,13 @@ set fileencodings=utf-8,iso-2022-jp,euc-jp,sjis,cp932
 set fileformats=unix,dos,mac
 
 augroup guard
-		autocmd!
+	autocmd!
 augroup END
 
 set number
+set tabstop=4
+set shiftwidth=4
+set backspace=2
 set cindent
 set title
 set showmatch
@@ -13,7 +16,6 @@ set cursorline
 set noswapfile
 set autoread
 set ruler
-set tabstop=4
 set statusline=%F
 set statusline+=%m
 set statusline+=%r
@@ -33,11 +35,9 @@ set nowrap
 set wrapscan
 set ignorecase
 set smartcase
-set paste
 set wildmenu
 set listchars=tab:>\ ,eol:<
 set list
-set backspace=indent,eol,start
 set clipboard+=unnamedplus,unnamed
 
 inoremap <C-c> <Esc>
@@ -72,17 +72,17 @@ autocmd guard WinLeave * setlocal nocursorline
 autocmd guard QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen |  endif
 
 if &diff
-		set splitright
-		nnoremap <Space><Space> ]czz
-		if !exists(":DiffOrig")
-				command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
-										\ | wincmd p | diffthis
-		endif
+	set splitright
+	nnoremap <Space><Space> ]czz
+	if !exists(":DiffOrig")
+		command DiffOrig vert new | set bt=nofile | r # | 0d_ | diffthis
+					\ | wincmd p | diffthis
+	endif
 endif
 
 "fish
 if &shell =~# 'fish$'
-    set shell=sh
+	set shell=sh
 endif
 
 "dein
@@ -90,7 +90,7 @@ let s:dein_dir = expand('~/.vim/dein')
 let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
-		execute '!git clone -b 1.5 https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
+	execute '!git clone -b 1.5 https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
 endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
@@ -106,7 +106,7 @@ call dein#add('mattn/emmet-vim')
 call dein#end()
 
 if dein#check_install()
-		call dein#install()
+	call dein#install()
 endif
 
 filetype plugin indent on
@@ -129,4 +129,3 @@ nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
-
