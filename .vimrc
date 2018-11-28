@@ -41,9 +41,8 @@ set list
 set clipboard+=unnamedplus,unnamed
 
 augroup fileTypeIndent
-	autocmd guard BufNewFile,BufRead *.py setlocal tabstop=4 softtabstop=4 shiftwidth=4
-	autocmd guard BufNewFile,BufRead *.rb setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
-	autocmd guard BufNewFile,BufRead *.erb setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
+	autocmd guard BufNewFile,BufRead *.py,*.php setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+	autocmd guard BufNewFile,BufRead *.rb,*.erb,*.html,*.scss,*.css,*.js,*.coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
 inoremap <C-c> <Esc>
