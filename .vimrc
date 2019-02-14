@@ -127,6 +127,7 @@ let g:unite_enable_start_insert=1
 let g:unite_source_history_yank_enable =1
 let g:unite_source_file_mru_limit = 200
 
+nnoremap <silent> <Space>f :<C-u>Unite file<CR>
 nnoremap <silent> <Space>b :<C-u>Unite buffer<CR>
 nnoremap <silent> <Space>r :<C-u>Unite -buffer-name=register register<CR>
 nnoremap <silent> <Space>e :<C-u>Unite file_rec<CR>
