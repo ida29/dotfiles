@@ -17,3 +17,4 @@ set __fish_git_prompt_char_upstream_behind '<'
 set __fish_git_prompt_char_upstream_ahead '>'
 set __fish_git_prompt_char_upstream_diverged '<>'
 set __fish_git_prompt_char_creanstate '=='
+rvm default

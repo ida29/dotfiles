@@ -106,6 +106,7 @@ call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
 call dein#add('Shougo/neoyank.vim')
 call dein#add('Shougo/unite-outline')
+call dein#add('posva/vim-vue')
 call dein#add('fatih/vim-go')
 call dein#add('mattn/emmet-vim')
 call dein#end()
@@ -135,3 +136,15 @@ nnoremap <silent> <Space>m :<C-u>Unite file_mru<CR>
 nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
+
+let s:unite_ignore_file_rec_patterns=
+      \ ''
+      \ .'vendor/bundle\|.bundle/\|\.sass-cache/\|'
+      \ .'node_modules/\|bower_components/\|'
+      \ .'\.\(bmp\|gif\|jpe\?g\|png\|webp\|ai\|psd\)"\?$'
+
+call unite#custom#source(
+      \ 'file_rec',
+      \ 'ignore_pattern',
+      \ s:unite_ignore_file_rec_patterns)
+
