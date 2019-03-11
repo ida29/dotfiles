@@ -148,3 +148,5 @@ call unite#custom#source(
       \ 'ignore_pattern',
       \ s:unite_ignore_file_rec_patterns)
 
+" vim-vue
+autocmd guard FileType vue syntax sync fromstart
