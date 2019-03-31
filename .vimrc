@@ -139,7 +139,7 @@ au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
 
 let s:unite_ignore_file_rec_patterns=
       \ ''
-      \ .'vendor/bundle\|.bundle/\|\.sass-cache/\|'
+      \ .'vendor/\|.bundle/\|\.sass-cache/\|'
       \ .'node_modules/\|bower_components/\|'
       \ .'\.\(bmp\|gif\|jpe\?g\|png\|webp\|ai\|psd\)"\?$'
 
