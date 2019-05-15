@@ -55,7 +55,7 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,py,go,html,css,scss,js,erb,php,sql,rs,sh,tpl,md} -r ' . expand('<cword>') . ' .'
+nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,py,go,html,css,scss,js,erb,php,sql,rs,sh,tpl,md,vue} -r ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
