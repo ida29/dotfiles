@@ -96,7 +96,7 @@ let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
 
 if !isdirectory(s:dein_repo_dir)
 	execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
-	execute '!cd dein.vim && git checkout -b 1.5 refs/tags/1.5'
+	execute '!cd' s:dein_repo_dir '&& git checkout -b 1.5 refs/tags/1.5'
 endif
 
 execute 'set runtimepath^=' . s:dein_repo_dir
