@@ -141,5 +141,16 @@ nnoremap <silent> <Space>y :<C-u>Unite history/yank<CR>
 nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
 
+let s:unite_ignore_file_rec_patterns=
+      \ ''
+      \ .'vendor/\|.bundle/\|\.sass-cache/\|'
+      \ .'node_modules/\|bower_components/\|'
+      \ .'\.\(bmp\|gif\|jpe\?g\|png\|webp\|ai\|psd\)"\?$'
+
+call unite#custom#source(
+      \ 'file_rec',
+      \ 'ignore_pattern',
+      \ s:unite_ignore_file_rec_patterns)
+
 " vim-vue
 autocmd guard FileType vue syntax sync fromstart
