@@ -105,6 +105,9 @@ call dein#begin(s:dein_dir)
 call dein#add('Shougo/dein.vim')
 call dein#add('Shougo/unite.vim')
 call dein#add('Shougo/neomru.vim')
+if has("unix") " winだとうまく動かん
+call dein#add('Shougo/vimproc.vim')
+endif
 call dein#add('Shougo/neoyank.vim')
 call dein#add('Shougo/unite-outline')
 call dein#add('posva/vim-vue')
