@@ -113,6 +113,7 @@ call dein#add('Shougo/unite-outline')
 call dein#add('posva/vim-vue')
 call dein#add('fatih/vim-go')
 call dein#add('mattn/emmet-vim')
+call dein#add('pearofducks/ansible-vim')
 call dein#end()
 
 if dein#check_install()
