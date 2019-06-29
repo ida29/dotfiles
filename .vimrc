@@ -119,6 +119,7 @@ if dein#load_state('$HOME/.cache/dein')
   call dein#add('fatih/vim-go')
   call dein#add('mattn/emmet-vim')
   call dein#add('pearofducks/ansible-vim')
+  call dein#add('jparise/vim-graphql')
 
   " Required:
   call dein#end()
