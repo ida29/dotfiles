@@ -91,36 +91,48 @@ if &shell =~# 'fish$'
 endif
 
 "dein
-let s:dein_dir = expand('~/.vim/dein')
-let s:dein_repo_dir = s:dein_dir . '/repos/github.com/Shougo/dein.vim'
-
-if !isdirectory(s:dein_repo_dir)
-	execute '!git clone https://github.com/Shougo/dein.vim.git' s:dein_repo_dir
-	execute '!cd' s:dein_repo_dir '&& git checkout -b 1.5 refs/tags/1.5'
+if &compatible
+  set nocompatible               " Be iMproved
 endif
 
-execute 'set runtimepath^=' . s:dein_repo_dir
+" Required:
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
-call dein#begin(s:dein_dir)
-call dein#add('Shougo/dein.vim')
-call dein#add('Shougo/unite.vim')
-call dein#add('Shougo/neomru.vim')
-if has("unix") " winだとうまく動かん
-call dein#add('Shougo/vimproc.vim')
+" Required:
+if dein#load_state('$HOME/.cache/dein')
+  call dein#begin('$HOME/.cache/dein')
+
+  " Let dein manage dein
+  " Required:
+  call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
+
+  " Add or remove your plugins here:
+  call dein#add('Shougo/dein.vim')
+  call dein#add('Shougo/unite.vim')
+  call dein#add('Shougo/neomru.vim')
+  if has("unix") " winだとうまく動かん
+    call dein#add('Shougo/vimproc.vim')
+  endif
+  call dein#add('Shougo/neoyank.vim')
+  call dein#add('Shougo/unite-outline')
+  call dein#add('posva/vim-vue')
+  call dein#add('fatih/vim-go')
+  call dein#add('mattn/emmet-vim')
+  call dein#add('pearofducks/ansible-vim')
+
+  " Required:
+  call dein#end()
+  call dein#save_state()
 endif
-call dein#add('Shougo/neoyank.vim')
-call dein#add('Shougo/unite-outline')
-call dein#add('posva/vim-vue')
-call dein#add('fatih/vim-go')
-call dein#add('mattn/emmet-vim')
-call dein#add('pearofducks/ansible-vim')
-call dein#end()
 
-if dein#check_install()
-	call dein#install()
-endif
-
+" Required:
 filetype plugin indent on
+syntax enable
+
+" If you want to install not installed plugins on startup.
+if dein#check_install()
+  call dein#install()
+endif
 
 "vim-go
 let g:go_version_warning = 0
