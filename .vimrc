@@ -41,7 +41,7 @@ set list
 set clipboard+=unnamedplus,unnamed
 
 augroup fileTypeIndent
-	autocmd guard BufNewFile,BufRead *.py,*.php setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+	autocmd guard BufNewFile,BufRead *.py,*.php,*.json setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 	autocmd guard BufNewFile,BufRead *.vue,*.rb,*.erb,*.html,*.scss,*.css,*.js,*.coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
@@ -92,38 +92,39 @@ endif
 
 "dein
 if &compatible
-  set nocompatible               " Be iMproved
+	set nocompatible               " Be iMproved
 endif
 
 " Required:
 set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
+set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
 
 " Required:
 if dein#load_state('$HOME/.cache/dein')
-  call dein#begin('$HOME/.cache/dein')
+	call dein#begin('$HOME/.cache/dein')
 
-  " Let dein manage dein
-  " Required:
-  call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
+	" Let dein manage dein
+	" Required:
+	call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
 
-  " Add or remove your plugins here:
-  call dein#add('Shougo/dein.vim')
-  call dein#add('Shougo/unite.vim')
-  call dein#add('Shougo/neomru.vim')
-  if has("unix") " winだとうまく動かん
-    call dein#add('Shougo/vimproc.vim')
-  endif
-  call dein#add('Shougo/neoyank.vim')
-  call dein#add('Shougo/unite-outline')
-  call dein#add('posva/vim-vue')
-  call dein#add('fatih/vim-go')
-  call dein#add('mattn/emmet-vim')
-  call dein#add('pearofducks/ansible-vim')
-  call dein#add('jparise/vim-graphql')
+	" Add or remove your plugins here:
+	call dein#add('Shougo/dein.vim')
+	call dein#add('Shougo/unite.vim')
+	call dein#add('Shougo/neomru.vim')
+	if has("unix") " winだとうまく動かん
+		call dein#add('Shougo/vimproc.vim')
+	endif
+	call dein#add('Shougo/neoyank.vim')
+	call dein#add('Shougo/unite-outline')
+	call dein#add('posva/vim-vue')
+	call dein#add('fatih/vim-go')
+	call dein#add('mattn/emmet-vim')
+	call dein#add('pearofducks/ansible-vim')
+	call dein#add('jparise/vim-graphql')
 
-  " Required:
-  call dein#end()
-  call dein#save_state()
+	" Required:
+	call dein#end()
+	call dein#save_state()
 endif
 
 " Required:
@@ -132,7 +133,7 @@ syntax enable
 
 " If you want to install not installed plugins on startup.
 if dein#check_install()
-  call dein#install()
+	call dein#install()
 endif
 
 "vim-go
@@ -156,15 +157,15 @@ nnoremap <silent> <Space>o :<C-u>Unite outline<CR>
 au FileType unite nnoremap <silent> <buffer> <C-c> :q<CR>
 
 let s:unite_ignore_file_rec_patterns=
-      \ ''
-      \ .'vendor/\|.bundle/\|\.sass-cache/\|'
-      \ .'node_modules/\|bower_components/\|'
-      \ .'\.\(bmp\|gif\|jpe\?g\|png\|webp\|ai\|psd\)"\?$'
+			\ ''
+			\ .'vendor/\|.bundle/\|\.sass-cache/\|'
+			\ .'node_modules/\|bower_components/\|'
+			\ .'\.\(bmp\|gif\|jpe\?g\|png\|webp\|ai\|psd\)"\?$'
 
 call unite#custom#source(
-      \ 'file_rec',
-      \ 'ignore_pattern',
-      \ s:unite_ignore_file_rec_patterns)
+			\ 'file_rec',
+			\ 'ignore_pattern',
+			\ s:unite_ignore_file_rec_patterns)
 
 " vim-vue
 autocmd guard FileType vue syntax sync fromstart
