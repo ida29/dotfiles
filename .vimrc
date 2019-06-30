@@ -108,13 +108,13 @@ if dein#load_state('$HOME/.cache/dein')
 
 	" Add or remove your plugins here:
 	call dein#add('Shougo/dein.vim')
-	call dein#add('junegunn/fzf', { 'build': './install --all', 'merged': 0 })
-	call dein#add('junegunn/fzf.vim', { 'depends': 'fzf' })
+	call dein#add('kien/ctrlp.vim')
 	call dein#add('posva/vim-vue')
 	call dein#add('fatih/vim-go')
 	call dein#add('mattn/emmet-vim')
 	call dein#add('pearofducks/ansible-vim')
 	call dein#add('jparise/vim-graphql')
+	call dein#add('ConradIrwin/vim-bracketed-paste')
 
 	" Required:
 	call dein#end()
@@ -136,11 +136,11 @@ let g:go_version_warning = 0
 "emmet-vim
 let g:user_emmet_leader_key = '<C-y>'
 
-"fzf
-let mapleader = "\<Space>"
-nnoremap <Leader>e :Files<CR>
-nnoremap <Leader>f :GFiles<CR>
-nnoremap <Leader>m :History<CR>
+"ctrlp
+let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+nnoremap <Space>f :CtrlP<CR>
+nnoremap <Space>e :CtrlPMixed<CR>
+nnoremap <Space>m :CtrlPMRUFiles<CR>
 
 " vim-vue
 autocmd guard FileType vue syntax sync fromstart
