@@ -94,7 +94,6 @@ endif
 " install:
 " curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.vim/plugged')
-Plug 'Shougo/dein.vim'
 Plug 'kien/ctrlp.vim'
 Plug 'posva/vim-vue'
 Plug 'fatih/vim-go'
