@@ -115,6 +115,7 @@ if dein#load_state('$HOME/.cache/dein')
 	call dein#add('pearofducks/ansible-vim')
 	call dein#add('jparise/vim-graphql')
 	call dein#add('ConradIrwin/vim-bracketed-paste')
+	call dein#add('majutsushi/tagbar')
 
 	" Required:
 	call dein#end()
@@ -144,3 +145,9 @@ nnoremap <Space>m :CtrlPMRUFiles<CR>
 
 " vim-vue
 autocmd guard FileType vue syntax sync fromstart
+
+" tagbar
+let g:tagbar_left = 1
+let g:tagbar_autoclose = 1
+nnoremap <Space>o :TagbarToggle<CR>
+
