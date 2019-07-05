@@ -90,46 +90,21 @@ if &shell =~# 'fish$'
 	set shell=sh
 endif
 
-"dein
-if &compatible
-	set nocompatible               " Be iMproved
-endif
-
-" Required:
-set runtimepath+=$HOME/.cache/dein/repos/github.com/Shougo/dein.vim
-
-" Required:
-if dein#load_state('$HOME/.cache/dein')
-	call dein#begin('$HOME/.cache/dein')
-
-	" Let dein manage dein
-	" Required:
-	call dein#add('$HOME/.cache/dein/repos/github.com/Shougo/dein.vim')
-
-	" Add or remove your plugins here:
-	call dein#add('Shougo/dein.vim')
-	call dein#add('kien/ctrlp.vim')
-	call dein#add('posva/vim-vue')
-	call dein#add('fatih/vim-go')
-	call dein#add('mattn/emmet-vim')
-	call dein#add('pearofducks/ansible-vim')
-	call dein#add('jparise/vim-graphql')
-	call dein#add('ConradIrwin/vim-bracketed-paste')
-	call dein#add('majutsushi/tagbar')
-
-	" Required:
-	call dein#end()
-	call dein#save_state()
-endif
-
-" Required:
-filetype plugin indent on
-syntax enable
-
-" If you want to install not installed plugins on startup.
-if dein#check_install()
-	call dein#install()
-endif
+"vim-plug
+" install:
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+call plug#begin('~/.vim/plugged')
+Plug 'Shougo/dein.vim'
+Plug 'kien/ctrlp.vim'
+Plug 'posva/vim-vue'
+Plug 'fatih/vim-go'
+Plug 'mattn/emmet-vim'
+Plug 'pearofducks/ansible-vim'
+Plug 'jparise/vim-graphql'
+Plug 'ConradIrwin/vim-bracketed-paste'
+Plug 'majutsushi/tagbar'
+Plug 'junegunn/vim-easy-align'
+call plug#end()
 
 "vim-go
 let g:go_version_warning = 0
