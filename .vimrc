@@ -41,7 +41,7 @@ set list
 set clipboard+=unnamedplus,unnamed
 
 augroup fileTypeIndent
-	autocmd guard BufNewFile,BufRead *.py,*.php,*.json setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
+	autocmd guard BufNewFile,BufRead *.c,*.h,*.cpp,*.hpp,*.py,*.php,*.json setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 	autocmd guard BufNewFile,BufRead *.vue,*.rb,*.erb,*.html,*.scss,*.css,*.js,*.coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
 augroup END
 
