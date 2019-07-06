@@ -59,7 +59,6 @@ vnoremap gk k
 set t_Co=256
 syntax enable
 set background=dark
-colorscheme hybrid
 
 autocmd guard VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd guard WinLeave * setlocal nocursorline
@@ -94,8 +93,9 @@ Plug 'majutsushi/tagbar'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
-Plug 'w0ng/vim-hybrid', {'do': 'cp colors/* ~/.vim/colors/'}
+Plug 'w0ng/vim-hybrid'
 call plug#end()
+colo hybrid
 
 "vim-go
 let g:go_version_warning = 0
