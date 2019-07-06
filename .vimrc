@@ -82,7 +82,6 @@ endif
 
 "vim-plug
 " install:
-" curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
 Plug 'posva/vim-vue'
@@ -95,6 +94,7 @@ Plug 'majutsushi/tagbar'
 Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
+Plug 'w0ng/vim-hybrid', {'do': 'cp colors/* ~/.vim/colors/'}
 call plug#end()
 
 "vim-go
