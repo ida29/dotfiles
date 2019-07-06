@@ -16,18 +16,8 @@ set cursorline
 set noswapfile
 set autoread
 set ruler
-set statusline=%F
-set statusline+=%m
-set statusline+=%r
-set statusline+=%h
-set statusline+=%w
-set statusline+=%=
-set statusline+=[%{&ff}]
-set statusline+=[%{&fileencoding}]
-set statusline+=[%l/%L]
-set laststatus=2
 set hidden
-set history=300
+set history=100
 set showcmd
 set incsearch
 set hlsearch
@@ -103,6 +93,8 @@ Plug 'jparise/vim-graphql'
 Plug 'ConradIrwin/vim-bracketed-paste'
 Plug 'majutsushi/tagbar'
 Plug 'junegunn/vim-easy-align'
+Plug 'vim-airline/vim-airline'
+Plug 'tpope/vim-fugitive'
 call plug#end()
 
 "vim-go
@@ -117,11 +109,13 @@ nnoremap <Space>f :CtrlP<CR>
 nnoremap <Space>e :CtrlPMixed<CR>
 nnoremap <Space>m :CtrlPMRUFiles<CR>
 
-" vim-vue
+"vim-vue
 autocmd guard FileType vue syntax sync fromstart
 
-" tagbar
-let g:tagbar_left = 1
+"tagbar
 let g:tagbar_autoclose = 1
 nnoremap <Space>o :TagbarToggle<CR>
+autocmd guard FileType TagBar nnoremap <silent> <buffer> <C-c> :q<CR>
 
+"fugitive
+nnoremap <Space>b :Gblame<CR>
