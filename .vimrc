@@ -80,7 +80,6 @@ if &shell =~# 'fish$'
 endif
 
 "vim-plug
-" install:
 call plug#begin('~/.vim/plugged')
 Plug 'kien/ctrlp.vim'
 Plug 'posva/vim-vue'
@@ -113,9 +112,7 @@ nnoremap <Space>m :CtrlPMRUFiles<CR>
 autocmd guard FileType vue syntax sync fromstart
 
 "tagbar
-let g:tagbar_autoclose = 1
 nnoremap <Space>o :TagbarToggle<CR>
-autocmd guard FileType TagBar nnoremap <silent> <buffer> <C-c> :q<CR>
 
 "fugitive
 nnoremap <Space>b :Gblame<CR>
