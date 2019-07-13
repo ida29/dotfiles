@@ -93,8 +93,12 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'w0ng/vim-hybrid'
+Plug 'scrooloose/nerdtree'
 call plug#end()
 colo hybrid
+
+"nerdtree
+nnoremap <Space>e :NERDTreeToggle<CR>
 
 "vim-go
 let g:go_version_warning = 0
@@ -105,8 +109,8 @@ let g:user_emmet_leader_key = '<C-y>'
 "ctrlp
 let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
 nnoremap <Space>f :CtrlP<CR>
-nnoremap <Space>e :CtrlPMixed<CR>
 nnoremap <Space>m :CtrlPMRUFiles<CR>
+nnoremap <Space>l :CtrlPClearCache<CR>
 
 "vim-vue
 autocmd guard FileType vue syntax sync fromstart
