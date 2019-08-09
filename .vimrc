@@ -94,8 +94,34 @@ Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'w0ng/vim-hybrid'
 Plug 'scrooloose/nerdtree'
+Plug 'prabirshrestha/asyncomplete.vim'
+Plug 'prabirshrestha/async.vim'
+Plug 'prabirshrestha/vim-lsp'
+Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
 call plug#end()
 colo hybrid
+
+"vim-lsp
+let g:asyncomplete_remove_duplicates = 1
+let g:asyncomplete_smart_completion = 1
+let g:asyncomplete_auto_popup = 1
+
+nmap <silent> <Space>d :LspDefinition<CR>
+nmap <silent> <Space>r :LspReferences<CR>
+
+au User lsp_setup call lsp#register_server({
+			\ 'name': 'intelephense',
+			\ 'cmd': {server_info->['node', expand('PATH_TO_GLOBAL_NODE_MODULES/intelephense/lib/intelephense.js'), '--stdio']},
+			\ 'initialization_options': {"storagePath": "PATH_TO_TEMP_FOLDER/intelephense"},
+			\ 'whitelist': ['php'],
+			\ })
+
+au User lsp_setup call lsp#register_server({                                    
+			\ 'name': 'php-language-server',                                            
+			\ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
+			\ 'whitelist': ['php'],                                                     
+			\ })
 
 "nerdtree
 nnoremap <Space>e :NERDTreeToggle<CR>
