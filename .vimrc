@@ -126,6 +126,15 @@ au User lsp_setup call lsp#register_server({
 			\ 'whitelist': ['php'],                                                     
 			\ })
 
+if executable('go-langserver')
+    au User lsp_setup call lsp#register_server({
+        \ 'name': 'go-langserver',
+        \ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+        \ 'whitelist': ['go'],
+        \ })
+    autocmd BufWritePre *.go LspDocumentFormatSync
+endif
+
 "nerdtree
 nnoremap <Space>e :NERDTreeToggle<CR>
 
