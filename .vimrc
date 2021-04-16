@@ -17,7 +17,7 @@ set noswapfile
 set autoread
 set ruler
 set hidden
-set history=20
+set history=100
 set showcmd
 set incsearch
 set hlsearch
@@ -95,8 +95,9 @@ Plug 'tpope/vim-fugitive'
 Plug 'w0ng/vim-hybrid'
 Plug 'scrooloose/nerdtree'
 Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/async.vim'
 Plug 'prabirshrestha/vim-lsp'
+Plug 'mattn/vim-lsp-settings'
+Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 if has('win32') || has ('win64')
 else
@@ -112,19 +113,6 @@ let g:asyncomplete_auto_popup = 1
 
 nmap <silent> <Space>d :LspDefinition<CR>
 nmap <silent> <Space>r :LspReferences<CR>
-
-au User lsp_setup call lsp#register_server({
-			\ 'name': 'intelephense',
-			\ 'cmd': {server_info->['node', expand('PATH_TO_GLOBAL_NODE_MODULES/intelephense/lib/intelephense.js'), '--stdio']},
-			\ 'initialization_options': {"storagePath": "PATH_TO_TEMP_FOLDER/intelephense"},
-			\ 'whitelist': ['php'],
-			\ })
-
-au User lsp_setup call lsp#register_server({                                    
-			\ 'name': 'php-language-server',                                            
-			\ 'cmd': {server_info->['php', expand('~/.vim/plugged/php-language-server/bin/php-language-server.php')]},
-			\ 'whitelist': ['php'],                                                     
-			\ })
 
 if executable('gopls')
 	au User lsp_setup call lsp#register_server({
