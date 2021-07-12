@@ -50,7 +50,7 @@ nnoremap <Space>h 0
 nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
 nnoremap <Space>l $
-nnoremap <Space>t <C-]>
+nnoremap <Space>t g<C-]>
 vnoremap j gj
 vnoremap k gk
 vnoremap gj j
@@ -151,7 +151,7 @@ nnoremap <Space>l :CtrlPClearCache<CR>
 autocmd guard FileType vue syntax sync fromstart
 
 "tagbar
-nnoremap <Space>o :TagbarToggle<CR>
+nnoremap <Space>w :TagbarToggle<CR>
 
 "fugitive
 nnoremap <Space>b :Gblame<CR>
