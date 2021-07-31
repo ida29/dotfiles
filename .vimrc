@@ -30,6 +30,9 @@ set listchars=tab:>\ ,eol:<
 set list
 set clipboard+=unnamedplus,unnamed
 
+set spelllang=en,cjk
+"set spell
+
 augroup fileTypeIndent
 	autocmd guard BufNewFile,BufRead *.c,*.h,*.cpp,*.hpp,*.py,*.php,*.json setlocal tabstop=4 softtabstop=4 shiftwidth=4 expandtab
 	autocmd guard BufNewFile,BufRead *.vue,*.rb,*.erb,*.html,*.scss,*.css,*.js,*.coffee setlocal tabstop=2 softtabstop=2 shiftwidth=2 expandtab
@@ -99,6 +102,7 @@ Plug 'prabirshrestha/vim-lsp'
 Plug 'mattn/vim-lsp-settings'
 Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
+Plug 'nicwest/vim-camelsnek'
 if has('win32') || has ('win64')
 else
 	Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
@@ -155,3 +159,14 @@ nnoremap <Space>w :TagbarToggle<CR>
 
 "fugitive
 nnoremap <Space>b :Gblame<CR>
+
+"vim-camelsnek
+" Some organisations use the terms camel and pascal to differentiate between
+" the two variants of camel case. This setting changes the commands:
+" :Camel  -> :Pascal
+" :CamelB -> :Camel
+let g:camelsnek_alternative_camel_commands = 1
+
+" This setting also changes the name of a command:
+" :Snek -> :Snak
+let g:camelsnek_i_am_an_old_fart_with_no_sense_of_humour_or_internet_culture = 1
