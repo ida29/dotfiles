@@ -58,6 +58,7 @@ vnoremap j gj
 vnoremap k gk
 vnoremap gj j
 vnoremap gk k
+cmap w!! w !sudo tee > /dev/null %
 
 set t_Co=256
 syntax enable
@@ -84,7 +85,7 @@ endif
 
 "vim-plug
 call plug#begin('~/.vim/plugged')
-Plug 'kien/ctrlp.vim'
+Plug 'ctrlpvim/ctrlp.vim'
 Plug 'posva/vim-vue'
 Plug 'fatih/vim-go'
 Plug 'mattn/emmet-vim'
@@ -158,7 +159,7 @@ autocmd guard FileType vue syntax sync fromstart
 nnoremap <Space>w :TagbarToggle<CR>
 
 "fugitive
-nnoremap <Space>b :Gblame<CR>
+nnoremap <Space>b :Git blame<CR>
 
 "vim-camelsnek
 " Some organisations use the terms camel and pascal to differentiate between
