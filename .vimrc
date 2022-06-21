@@ -105,6 +105,7 @@ Plug 'prabirshrestha/asyncomplete.vim'
 Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'nicwest/vim-camelsnek'
 Plug 'nathanalderson/yang.vim'
+Plug 'will133/vim-dirdiff'
 if has('win32') || has ('win64')
 else
 	Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
