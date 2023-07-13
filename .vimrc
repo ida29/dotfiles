@@ -48,7 +48,34 @@ nnoremap j gj
 nnoremap k gk
 nnoremap gj j
 nnoremap gk k
-nnoremap <expr> <Space>g ':grep --include=*.{c,cpp,h,hpp,rb,py,go,html,css,scss,js,erb,php,sql,rs,sh,tpl,md,vue,yml,json} -r ' . expand('<cword>') . ' .'
+"nnoremap <expr> <Space>g ':grep
+"			\ --include="*.html"
+"			\ --include="*.rb"
+"			\ --include="*.erb"
+"			\ --include="*.vue"
+"			\ --include="*.js"
+"			\ --include="*.ts"
+"			\ --include="*.md"
+"			\ --include="*.h"
+"			\ --include="*.c"
+"			\ --include="*.cpp"
+"			\ --include="*.hpp"
+"			\ --include="*.rs"
+"			\ --include="*.go"
+"			\ --include="*.py"
+"			\ --include="*.php"
+"			\ --include="*.sh"
+"			\ --include="*.json"
+"			\ --include="*.yml"
+"			\ --include="*.toml"
+"			\ --include="*.css"
+"			\ --include="*.scss"
+"			\ --exclude="*.d"
+"			\ --exclude="*.a"
+"			\ --exclude="*.so"
+"			\ --exclude="*.min.js"
+"			\ --exclude-dir=".git"
+"			\ -rI ' . expand('<cword>') . ' .'
 nnoremap <Space>h 0
 nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
@@ -67,7 +94,7 @@ set background=dark
 autocmd guard VimEnter,BufWinEnter,WinEnter * setlocal cursorline
 autocmd guard WinLeave * setlocal nocursorline
 
-autocmd guard QuickfixCmdPost make,grep,grepadd,vimgrep if len(getqflist()) != 0 | copen |  endif
+autocmd guard QuickfixCmdPost make,grepadd,vimgrep if len(getqflist()) != 0 | copen |  endif
 
 if &diff
 	set splitright
@@ -85,8 +112,9 @@ endif
 
 "vim-plug
 call plug#begin('~/.vim/plugged')
-Plug 'ctrlpvim/ctrlp.vim'
-Plug 'posva/vim-vue'
+"Plug 'ctrlpvim/ctrlp.vim'
+"Plug 'posva/vim-vue'
+"Plug 'leafOfTree/vim-vue-plugin'
 Plug 'fatih/vim-go'
 Plug 'mattn/emmet-vim'
 Plug 'pearofducks/ansible-vim'
@@ -97,15 +125,19 @@ Plug 'junegunn/vim-easy-align'
 Plug 'vim-airline/vim-airline'
 Plug 'tpope/vim-fugitive'
 Plug 'w0ng/vim-hybrid'
-Plug 'scrooloose/nerdtree'
+"Plug 'scrooloose/nerdtree'
 Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/vim-lsp'
-Plug 'mattn/vim-lsp-settings'
-Plug 'prabirshrestha/asyncomplete.vim'
-Plug 'prabirshrestha/asyncomplete-lsp.vim'
+"Plug 'prabirshrestha/vim-lsp'
+"Plug 'mattn/vim-lsp-settings'
+"Plug 'prabirshrestha/asyncomplete.vim'
+"Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'nicwest/vim-camelsnek'
 Plug 'nathanalderson/yang.vim'
 Plug 'will133/vim-dirdiff'
+Plug 'editorconfig/editorconfig-vim'
+Plug 'tpope/vim-endwise'
+Plug 'tpope/vim-rails'
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
 if has('win32') || has ('win64')
 else
 	Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
@@ -113,34 +145,46 @@ endif
 call plug#end()
 colo hybrid
 
+let g:coc_global_extensions = [ 
+			\'coc-lists', 
+			\'coc-explorer', 
+			\'coc-json', 
+			\'@yaegassy/coc-volar', 
+			\'coc-solargraph', 
+			\'coc-tsserver',
+			\]
+
 "vim-lsp
-let g:asyncomplete_remove_duplicates = 1
-let g:asyncomplete_smart_completion = 1
-let g:asyncomplete_auto_popup = 1
+"let g:asyncomplete_remove_duplicates = 1
+"let g:asyncomplete_smart_completion = 1
+"let g:asyncomplete_auto_popup = 1
 
-nmap <silent> <Space>d :LspDefinition<CR>
-nmap <silent> <Space>r :LspReferences<CR>
+"nmap <silent> <Space>d :LspDefinition<CR>
+"nmap <silent> <Space>r :LspReferences<CR>
 
-if executable('gopls')
-	au User lsp_setup call lsp#register_server({
-				\ 'name': 'gopls',
-				\ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
-				\ 'whitelist': ['go'],
-				\ })
-	autocmd BufWritePre *.go LspDocumentFormatSync
-endif
+"if executable('gopls')
+"	au User lsp_setup call lsp#register_server({
+"				\ 'name': 'gopls',
+"				\ 'cmd': {server_info->['gopls', '-mode', 'stdio']},
+"				\ 'whitelist': ['go'],
+"				\ })
+"	autocmd BufWritePre *.go LspDocumentFormatSync
+"endif
 
-if executable('go-langserver')
-	au User lsp_setup call lsp#register_server({
-				\ 'name': 'go-langserver',
-				\ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
-				\ 'whitelist': ['go'],
-				\ })
-	autocmd BufWritePre *.go LspDocumentFormatSync
-endif
+"if executable('go-langserver')
+"	au User lsp_setup call lsp#register_server({
+"				\ 'name': 'go-langserver',
+"				\ 'cmd': {server_info->['go-langserver', '-gocodecompletion']},
+"				\ 'whitelist': ['go'],
+"				\ })
+"	autocmd BufWritePre *.go LspDocumentFormatSync
+"endif
 
 "nerdtree
-nnoremap <Space>e :NERDTreeToggle<CR>
+"nnoremap <Space>e :NERDTreeToggle<CR>
+
+"coc-explorer
+nnoremap <space>e <Cmd>CocCommand explorer<CR>
 
 "vim-go
 let g:go_version_warning = 0
@@ -149,10 +193,10 @@ let g:go_version_warning = 0
 let g:user_emmet_leader_key = '<C-y>'
 
 "ctrlp
-let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
-nnoremap <Space>f :CtrlP<CR>
-nnoremap <Space>m :CtrlPMRUFiles<CR>
-nnoremap <Space>l :CtrlPClearCache<CR>
+"let g:ctrlp_user_command = ['.git', 'cd %s && git ls-files -co --exclude-standard']
+"nnoremap <Space>f :CtrlP<CR>
+"nnoremap <Space>m :CtrlPMRUFiles<CR>
+"nnoremap <Space>l :CtrlPClearCache<CR>
 
 "vim-vue
 autocmd guard FileType vue syntax sync fromstart
@@ -173,3 +217,22 @@ let g:camelsnek_alternative_camel_commands = 1
 " This setting also changes the name of a command:
 " :Snek -> :Snak
 let g:camelsnek_i_am_an_old_fart_with_no_sense_of_humour_or_internet_culture = 1
+
+"coc.nvim
+set statusline^=%{coc#status()}
+
+" grep word under cursor
+command! -nargs=+ -complete=custom,s:GrepArgs Rg exe 'CocList grep '.<q-args>
+
+function! s:GrepArgs(...)
+  let list = ['-S', '-smartcase', '-i', '-ignorecase', '-w', '-word',
+        \ '-e', '-regex', '-u', '-skip-vcs-ignores', '-t', '-extension']
+  return join(list, "\n")
+endfunction
+
+" Keymapping for grep word under cursor with interactive mode
+nnoremap <silent> <Space>g :exe 'CocList -I --input='.expand('<cword>').' grep'<CR>
+
+"CocList
+nnoremap <Space>f :CocList files<CR>
+nnoremap <Space>m :CocList mru<CR>
