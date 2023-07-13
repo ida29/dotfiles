@@ -236,3 +236,5 @@ nnoremap <silent> <Space>g :exe 'CocList -I --input='.expand('<cword>').' grep'<
 "CocList
 nnoremap <Space>f :CocList files<CR>
 nnoremap <Space>m :CocList mru<CR>
+
+autocmd VimEnter * CocCommand explorer
