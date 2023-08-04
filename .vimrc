@@ -183,9 +183,6 @@ let g:coc_global_extensions = [
 "nerdtree
 "nnoremap <Space>e :NERDTreeToggle<CR>
 
-"coc-explorer
-nnoremap <space>e <Cmd>CocCommand explorer<CR>
-
 "vim-go
 let g:go_version_warning = 0
 
@@ -237,4 +234,9 @@ nnoremap <silent> <Space>g :exe 'CocList -I --input='.expand('<cword>').' grep'<
 nnoremap <Space>f :CocList files<CR>
 nnoremap <Space>m :CocList mru<CR>
 
-autocmd VimEnter * CocCommand explorer
+"coc-explorer
+nnoremap <space>e <Cmd>CocCommand explorer<CR>
+"autocmd VimEnter * CocCommand explorer
+
+"do/end jump
+source $VIMRUNTIME/macros/matchit.vim
