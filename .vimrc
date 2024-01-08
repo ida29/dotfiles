@@ -29,7 +29,7 @@ set wildmenu
 set listchars=tab:>\ ,eol:<
 set list
 set clipboard+=unnamedplus,unnamed
-
+set re=0
 set spelllang=en,cjk
 "set spell
 
@@ -132,12 +132,12 @@ Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/asyncomplete.vim'
 "Plug 'prabirshrestha/asyncomplete-lsp.vim'
 Plug 'nicwest/vim-camelsnek'
-Plug 'nathanalderson/yang.vim'
 Plug 'will133/vim-dirdiff'
 Plug 'editorconfig/editorconfig-vim'
 Plug 'tpope/vim-endwise'
 Plug 'tpope/vim-rails'
 Plug 'neoclide/coc.nvim', {'branch': 'release'}
+Plug 'github/copilot.vim'
 if has('win32') || has ('win64')
 else
 	Plug 'felixfbecker/php-language-server', {'do': 'composer install && composer run-script parse-stubs'}
