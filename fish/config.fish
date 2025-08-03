@@ -1,19 +1,7 @@
-set -x GOPATH $HOME/go
+set -gx VOLTA_HOME "$HOME/.volta"
+set -gx PATH "$VOLTA_HOME/bin" $PATH
+set -gx PATH $HOME/.claude/local $PATH
+fish_add_path /opt/homebrew/opt/postgresql@16/bin
+string match -q "$TERM_PROGRAM" "kiro" and . (kiro --locate-shell-integration-path fish)
+starship init fish | source
 
-set __fish_git_prompt_showdirtystate 'yes'
-set __fish_git_prompt_showstashstate 'yes'
-set __fish_git_prompt_showupstream 'yes'
-set __fish_git_prompt_showuntrackedfiles 'yes'
-set __fish_git_prompt_show_informative_status 'yes'
-set __fish_git_prompt_showcolorhints 'yes'
-
-set __fish_git_prompt_char_dirtystate '*'
-set __fish_git_prompt_char_stagedstate '+'
-set __fish_git_prompt_char_invalidstate '#'
-set __fish_git_prompt_char_untrackedfiles '%'
-set __fish_git_prompt_char_stashstate '$'
-set __fish_git_prompt_char_upstream_equal '='
-set __fish_git_prompt_char_upstream_behind '<'
-set __fish_git_prompt_char_upstream_ahead '>'
-set __fish_git_prompt_char_upstream_diverged '<>'
-set __fish_git_prompt_char_creanstate '=='

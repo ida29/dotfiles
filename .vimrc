@@ -81,6 +81,7 @@ nnoremap <Space>j ]]zz
 nnoremap <Space>k [[zz
 nnoremap <Space>l $
 nnoremap <Space>t g<C-]>
+nnoremap <C-t> <Plug>(coc-implementation)
 vnoremap j gj
 vnoremap k gk
 vnoremap gj j
