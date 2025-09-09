@@ -20,6 +20,11 @@ echo "Installing AstroNvim..."
 git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
 rm -rf ~/.config/nvim/.git
 
+# Copy custom plugin configurations
+echo "Copying custom plugin configurations..."
+mkdir -p ~/.config/nvim/lua/plugins
+ln -sf ~/dotfiles/.config/nvim/lua/plugins/claudecode.lua ~/.config/nvim/lua/plugins/claudecode.lua
+
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
