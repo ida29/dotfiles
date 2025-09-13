@@ -9,21 +9,27 @@ ln -sf ~/dotfiles/fish/config.fish ~/.config/fish/config.fish
 ln -sf ~/dotfiles/fish/functions/fish_prompt.fish ~/.config/fish/functions/fish_prompt.fish
 
 # AstroNvim installation
-# Backup existing Neovim config if it exists
-if [ -d ~/.config/nvim ] && [ ! -L ~/.config/nvim ]; then
-    echo "Backing up existing Neovim configuration..."
-    mv ~/.config/nvim ~/.config/nvim.bak.$(date +%Y%m%d_%H%M%S)
+# Only install AstroNvim if it doesn't exist
+if [ ! -d ~/.config/nvim ]; then
+    echo "Installing AstroNvim..."
+    git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
+    rm -rf ~/.config/nvim/.git
+else
+    echo "AstroNvim already installed, skipping installation..."
 fi
-
-# Clone AstroNvim
-echo "Installing AstroNvim..."
-git clone --depth 1 https://github.com/AstroNvim/template ~/.config/nvim
-rm -rf ~/.config/nvim/.git
 
 # Copy custom plugin configurations
 echo "Copying custom plugin configurations..."
 mkdir -p ~/.config/nvim/lua/plugins
-ln -sf ~/dotfiles/.config/nvim/lua/plugins/claudecode.lua ~/.config/nvim/lua/plugins/claudecode.lua
+
+# Create symlinks for all custom plugins
+for plugin in ~/dotfiles/.config/nvim/lua/plugins/*.lua; do
+    if [ -f "$plugin" ]; then
+        plugin_name=$(basename "$plugin")
+        ln -sf "$plugin" ~/.config/nvim/lua/plugins/"$plugin_name"
+        echo "Linked $plugin_name"
+    fi
+done
 
 curl https://git.io/fisher --create-dirs -sLo ~/.config/fish/functions/fisher.fish
 curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
@@ -31,7 +37,13 @@ curl -fLo ~/.vim/autoload/plug.vim --create-dirs https://raw.githubusercontent.c
 # Also install vim-plug for Neovim
 curl -fLo ~/.local/share/nvim/site/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 
-# Install Tmux Plugin Manager (TPM)
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# ~/.tmux/plugins/tpm を最新化するスクリプト
+if [ ! -d "$HOME/.tmux/plugins/tpm" ]; then
+  echo "TPM not found. Cloning..."
+  git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+else
+  echo "TPM already exists. Updating..."
+  cd ~/.tmux/plugins/tpm && git pull origin master
+fi
 
 git config --global core.editor 'vim -c "set fenc=utf-8"'
