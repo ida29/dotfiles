@@ -11,4 +11,9 @@ function cc
 end
 
 # Neovide aliases
-alias nv='neovide'
+alias nv='nvim'
+
+# Added by LM Studio CLI (lms)
+set -gx PATH $PATH /Users/yida/.lmstudio/bin
+# End of LM Studio CLI section
+
