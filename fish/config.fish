@@ -12,6 +12,7 @@ end
 
 # Neovide aliases
 alias nv='nvim'
+alias nvi='neovide'
 
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /Users/yida/.lmstudio/bin
