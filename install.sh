@@ -22,6 +22,16 @@ fi
 echo "Copying custom plugin configurations..."
 mkdir -p ~/.config/nvim/lua/plugins
 
+# Remove orphaned symlinks first
+echo "Removing orphaned plugin symlinks..."
+for link in ~/.config/nvim/lua/plugins/*.lua; do
+    if [ -L "$link" ] && [ ! -e "$link" ]; then
+        plugin_name=$(basename "$link")
+        rm "$link"
+        echo "Removed orphaned symlink: $plugin_name"
+    fi
+done
+
 # Create symlinks for all custom plugins
 for plugin in ~/dotfiles/.config/nvim/lua/plugins/*.lua; do
     if [ -f "$plugin" ]; then
