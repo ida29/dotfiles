@@ -11,3 +11,6 @@ vim.opt.completeopt = "menu,menuone,noselect"
 
 -- Clipboard settings
 vim.opt.clipboard = "unnamedplus"
+
+-- Map Ctrl-c to Escape in insert mode
+vim.keymap.set('i', '<C-c>', '<Esc>', { noremap = true })
