@@ -2,6 +2,7 @@
 if [[ "$OSTYPE" != "msys" ]]; then
 ln -sf ~/dotfiles/.vimrc ~/.vimrc
 ln -sf ~/dotfiles/.ctags ~/.ctags
+ln -sf ~/dotfiles/.ctags.d ~/.ctags.d
 fi
 ln -sf ~/dotfiles/.tmux.conf ~/.tmux.conf
 mkdir -p ~/.config/fish/functions

@@ -1,6 +1,7 @@
 set -gx VOLTA_HOME "$HOME/.volta"
 set -gx PATH "$VOLTA_HOME/bin" $PATH
 set -gx PATH $HOME/.claude/local $PATH
+set -gx PATH /opt/homebrew/bin $PATH
 fish_add_path /opt/homebrew/opt/postgresql@16/bin
 starship init fish | source
 
@@ -10,7 +11,7 @@ end
 if test -f ~/.backlog_key
   set -gx BACKLOG_API_KEY (cat ~/.backlog_key)
 end
-if test -f ~/.notion_key
+if test -f ~/.gemini_key
   set -gx GEMINI_API_KEY (cat ~/.gemini_key)
 end
 
