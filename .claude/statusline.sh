@@ -52,6 +52,9 @@ eval "$(echo "$input" | jq -r '
   "CTX_CACHE_READ=" + ((.context_window.current_usage.cache_read_input_tokens // 0) | tostring),
   "CTX_HAS_USAGE=" + (if .context_window.current_usage then "1" else "0" end),
   "CWD=" + (.workspace.current_dir // "." | @sh),
+  "PROJECT_DIR=" + (.workspace.project_dir // .workspace.current_dir // "." | @sh),
+  "SESSION_ID=" + (.session_id // "" | @sh),
+  "SESSION_NAME=" + (.session_name // "" | @sh),
   "LINES_ADD=" + (.cost.total_lines_added // 0 | tostring),
   "LINES_DEL=" + (.cost.total_lines_removed // 0 | tostring),
   "FIVE_PCT=" + (.rate_limits.five_hour.used_percentage // empty | floor | tostring),
@@ -75,6 +78,18 @@ if git -C "$CWD" rev-parse --git-dir > /dev/null 2>&1; then
   [ -n "$BRANCH" ] && REPO_INFO+=" ${DIM}(${RESET}${MAGENTA}${BRANCH}${RESET}${DIM})${RESET}"
 fi
 
+# --- セッション名（SendMessage の宛先） ---
+# ListAgents / SendMessage が使う表示名は "<プロジェクトdir名>-<session_id 先頭2文字>"。
+# statusLine の JSON にこの名前は来ない (docs: default display name は session_name を
+# populate しない) ので自前で組み立てる。--name / /rename 済みならそちらを優先。
+SESSION_TAG=""
+if [ -n "$SESSION_NAME" ]; then
+  SESSION_TAG="$SESSION_NAME"
+elif [ -n "$SESSION_ID" ]; then
+  SESSION_TAG="$(basename "$PROJECT_DIR")-${SESSION_ID:0:2}"
+fi
+[ -n "$SESSION_TAG" ] && SESSION_TAG=" | ${YELLOW}@${SESSION_TAG}${RESET}"
+
 # --- レートリミット（stdin JSONから取得） ---
 FIVE_RESET=$(format_reset "$FIVE_RESET_EPOCH")
 SEVEN_RESET=$(format_reset "$SEVEN_RESET_EPOCH")
@@ -85,6 +100,6 @@ if [ "$LINES_ADD" -gt 0 ] 2>/dev/null || [ "$LINES_DEL" -gt 0 ] 2>/dev/null; the
   LINE_STATS=" | ${GREEN}+${LINES_ADD}${RESET}/${RED}-${LINES_DEL}${RESET}"
 fi
 
-printf '%b\n' "$(bar_line "cx" "$CTX_PCT") | ${CYAN}${MODEL}${RESET}${REPO_INFO}${LINE_STATS}"
+printf '%b\n' "$(bar_line "cx" "$CTX_PCT") | ${CYAN}${MODEL}${RESET}${SESSION_TAG}${REPO_INFO}${LINE_STATS}"
 printf '%b\n' "$(bar_line "5h" "$FIVE_PCT") |$FIVE_RESET"
 printf '%b'   "$(bar_line "7d" "$SEVEN_PCT") |$SEVEN_RESET"
