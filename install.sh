@@ -376,3 +376,37 @@ for style in "$DOTFILES_DIR"/.claude/output-styles/*.md; do
     ln -sf "$style" ~/.claude/output-styles/
   fi
 done
+
+# -----------------------------------------------------------------------------
+# Codex CLI
+# -----------------------------------------------------------------------------
+# Start every session in YOLO mode: no approval prompts, no sandbox.
+#
+# config.toml is NOT symlinked. Codex writes into it itself (a
+# [projects."<path>"] trust_level block per directory you open), so a symlink
+# would leave dotfiles permanently dirty with per-host paths. Instead we set
+# just the two keys we care about, in place, idempotently.
+codex_config_set() {
+  key="$1"
+  value="$2"
+  file="$HOME/.codex/config.toml"
+  tmp_file=$(mktemp)
+  if grep -qE "^[[:space:]]*${key}[[:space:]]*=" "$file"; then
+    sed -E "s|^[[:space:]]*${key}[[:space:]]*=.*|${key} = ${value}|" "$file" > "$tmp_file"
+  else
+    # Top-level keys must come before the first [table] header, otherwise TOML
+    # reads them as members of that table.
+    printf '%s = %s\n' "$key" "$value" > "$tmp_file"
+    if head -1 "$file" | grep -q '^\['; then
+      printf '\n' >> "$tmp_file"
+    fi
+    cat "$file" >> "$tmp_file"
+  fi
+  mv "$tmp_file" "$file"
+  chmod 600 "$file"
+}
+
+mkdir -p ~/.codex
+touch ~/.codex/config.toml
+codex_config_set approval_policy '"never"'
+codex_config_set sandbox_mode '"danger-full-access"'
