@@ -64,7 +64,7 @@ function claude
 end
 
 function cc
-    CLAUDE_CODE_NO_FLICKER=1 HOMEBREW_NO_AUTO_UPDATE=1 CLAUDE_CODE_NO_FLICKER=1 claude --resume $argv
+    CLAUDE_CODE_NO_FLICKER=1 HOMEBREW_NO_AUTO_UPDATE=1 claude --resume $argv
 end
 
 function cx
