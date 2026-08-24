@@ -2,6 +2,13 @@
 input=$(cat)
 NOW=$(date +%s)
 
+# 残枠 (rate_limits) はこのstdinにしか来ず、Claude Codeはディスクに残さない。
+# 書き留めないと ai-token-report が読めない。表示には一切影響しない。
+# 一時ファイル経由なのは、描画のたびに上書きするため読み手が途中の
+# 内容を見ないようにするもの
+printf '%s' "$input" > "$HOME/.claude/statusline-last.json.tmp" 2>/dev/null &&
+  mv "$HOME/.claude/statusline-last.json.tmp" "$HOME/.claude/statusline-last.json" 2>/dev/null
+
 # --- ANSIカラー ---
 CYAN='\033[36m' YELLOW='\033[33m' RED='\033[31m'
 GREEN='\033[32m' MAGENTA='\033[35m' DIM='\033[2m' RESET='\033[0m'
