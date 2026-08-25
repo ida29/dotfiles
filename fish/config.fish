@@ -72,7 +72,7 @@ function cx
 end
 
 function cop
-    COPILOT_MODEL=gpt-5.4 copilot --allow-all-tools --banner $argv
+    COPILOT_MODEL=gpt-5.6-sol copilot --allow-all-tools --banner $argv
 end
 
 function ge
