@@ -410,3 +410,63 @@ mkdir -p ~/.codex
 touch ~/.codex/config.toml
 codex_config_set approval_policy '"never"'
 codex_config_set sandbox_mode '"danger-full-access"'
+
+# -----------------------------------------------------------------------------
+# Grok CLI
+# -----------------------------------------------------------------------------
+# Keep Grok's mutable/user-specific config in place and manage only the setting
+# that avoids expensive fullscreen palette redraws in iTerm2.
+grok_config_set() {
+  table="$1"
+  key="$2"
+  value="$3"
+  file="$HOME/.grok/config.toml"
+  tmp_file=$(mktemp)
+
+  awk -v table="$table" -v key="$key" -v value="$value" '
+    BEGIN {
+      header = "[" table "]"
+      in_table = 0
+      table_found = 0
+      key_set = 0
+    }
+    $0 == header {
+      in_table = 1
+      table_found = 1
+      print
+      next
+    }
+    /^\[[^]]+\][[:space:]]*$/ {
+      if (in_table && !key_set) {
+        print key " = " value
+        key_set = 1
+      }
+      in_table = 0
+      print
+      next
+    }
+    in_table && $0 ~ "^[[:space:]]*" key "[[:space:]]*=" {
+      print key " = " value
+      key_set = 1
+      next
+    }
+    { print }
+    END {
+      if (in_table && !key_set) {
+        print key " = " value
+      } else if (!table_found) {
+        print ""
+        print header
+        print key " = " value
+      }
+    }
+  ' "$file" > "$tmp_file"
+
+  mv "$tmp_file" "$file"
+  chmod 600 "$file"
+}
+
+mkdir -p ~/.grok
+touch ~/.grok/config.toml
+grok_config_set ui screen_mode '"minimal"'
+ln -sf "$DOTFILES_DIR/grok/pager.toml" ~/.grok/pager.toml

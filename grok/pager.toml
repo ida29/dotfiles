@@ -1,0 +1,3 @@
+[animation]
+# Lower redraw frequency to reduce terminal and WindowServer CPU usage.
+fps = 10
