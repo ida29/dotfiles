@@ -32,6 +32,8 @@
 	<false/>
 	<key>HotkeyMigratedFromSingleToMulti</key>
 	<true/>
+	<key>MetalRedrawPeriod</key>
+	<real>5</real>
 	<key>NeverWarnAboutShortLivedSessions_B21BB39C-36F0-4C5D-A289-1E33C172D5D3</key>
 	<true/>
 	<key>New Bookmarks</key>
@@ -2352,5 +2354,7 @@
 	<false/>
 	<key>findMode_iTerm</key>
 	<integer>0</integer>
+	<key>metalMaximizeThroughput</key>
+	<true/>
 </dict>
 </plist>
