@@ -415,7 +415,7 @@ codex_config_set sandbox_mode '"danger-full-access"'
 # Grok CLI
 # -----------------------------------------------------------------------------
 # Keep Grok's mutable/user-specific config in place and manage only the setting
-# that avoids expensive fullscreen palette redraws in iTerm2.
+# that keeps the readable fullscreen UI while avoiding excessive redraws.
 grok_config_set() {
   table="$1"
   key="$2"
@@ -468,5 +468,5 @@ grok_config_set() {
 
 mkdir -p ~/.grok
 touch ~/.grok/config.toml
-grok_config_set ui screen_mode '"minimal"'
+grok_config_set ui screen_mode '"fullscreen"'
 ln -sf "$DOTFILES_DIR/grok/pager.toml" ~/.grok/pager.toml
