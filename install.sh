@@ -133,6 +133,42 @@ install_ripgrep() {
   echo "Warning: don't know how to install ripgrep on this OS"
 }
 
+# Official `agy install` appends a PATH block to every shell profile it
+# finds. ~/.local/bin is already on PATH via this repo, so we drop that
+# marker afterwards (tracked files would otherwise go dirty, and login
+# profiles would grow a duplicate on every fresh host).
+strip_agy_installer_path_block() {
+  local f tmp
+  for f in \
+    "$DOTFILES_DIR/zsh/.zshrc" \
+    "$DOTFILES_DIR/fish/config.fish" \
+    "$HOME/.zprofile" \
+    "$HOME/.profile" \
+    "$HOME/.bash_profile"
+  do
+    [[ -f "$f" ]] || continue
+    tmp=$(mktemp)
+    awk '
+      $0 == "# Added by Antigravity CLI installer" { skip=1; next }
+      skip { skip=0; next }
+      { print }
+    ' "$f" > "$tmp" && mv "$tmp" "$f"
+  done
+}
+
+install_agy() {
+  # Antigravity CLI (successor to Gemini CLI). Distinct from the desktop
+  # IDE wrapper at ~/.antigravity/antigravity/bin/agy — that one is a
+  # VS Code fork and reports 1.104.x. The CLI is a real binary at
+  # ~/.local/bin/agy. Official installer is a no-op if that path exists.
+  if [[ -x "$HOME/.local/bin/agy" && ! -L "$HOME/.local/bin/agy" ]]; then
+    return 0
+  fi
+  echo "Installing Antigravity CLI..."
+  curl -fsSL https://antigravity.google/cli/install.sh | bash
+  strip_agy_installer_path_block
+}
+
 # -----------------------------------------------------------------------------
 # Symlink config files
 # -----------------------------------------------------------------------------
@@ -327,6 +363,7 @@ install_delta
 install_deno
 install_jq
 install_ripgrep
+install_agy
 
 # -----------------------------------------------------------------------------
 # SKK dictionary for skkeleton (cross-host, OS-independent)
@@ -470,3 +507,39 @@ mkdir -p ~/.grok
 touch ~/.grok/config.toml
 grok_config_set ui screen_mode '"fullscreen"'
 ln -sf "$DOTFILES_DIR/grok/pager.toml" ~/.grok/pager.toml
+
+# -----------------------------------------------------------------------------
+# Antigravity CLI (successor to Gemini CLI)
+# -----------------------------------------------------------------------------
+# settings.json is NOT symlinked. The CLI writes trustedWorkspaces / model
+# into it, so a symlink would leave dotfiles dirty with per-host paths.
+# We only pin the keys we care about, in place, idempotently.
+#
+# Auth is Google-account OAuth (AI Pro / Ultra). Do not set
+# modelProvider=gemini — that switches to GEMINI_API_KEY and bypasses the
+# subscription quota.
+agy_settings_set() {
+  key="$1"
+  value="$2"
+  file="$HOME/.gemini/antigravity-cli/settings.json"
+  mkdir -p "$(dirname "$file")"
+  [ -f "$file" ] || printf '{}\n' > "$file"
+  tmp_file=$(mktemp)
+  jq --argjson v "$value" --arg k "$key" '.[$k] = $v' "$file" > "$tmp_file" \
+    && mv "$tmp_file" "$file"
+}
+
+agy_settings_set enableTelemetry false
+agy_settings_set showFeedbackSurvey false
+
+# Desktop IDE (if present): VS Code-style telemetry off. Shared agent
+# harness also honours enableTelemetry above; this covers the editor
+# process itself.
+if [[ "$OS" == macos ]]; then
+  ide_settings="$HOME/Library/Application Support/Antigravity/User/settings.json"
+  if [[ -f "$ide_settings" ]] && command -v jq >/dev/null; then
+    tmp_file=$(mktemp)
+    jq '."telemetry.telemetryLevel" = "off"' "$ide_settings" > "$tmp_file" \
+      && mv "$tmp_file" "$ide_settings"
+  fi
+fi

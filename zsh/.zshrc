@@ -20,8 +20,10 @@ fi
 # opencode
 export PATH=$HOME/.opencode/bin:$PATH
 
-# Added by Antigravity
-export PATH="$HOME/.antigravity/antigravity/bin:$PATH"
+# Antigravity desktop IDE. Appended (not prepended) so it never shadows
+# the CLI at ~/.local/bin/agy. The IDE binary is `antigravity`; the CLI
+# is `agy`.
+export PATH="$PATH:$HOME/.antigravity/antigravity/bin"
 
 # aqua (グローバルCLIツール管理) — codex等をバージョン固定で一元管理。
 # 既存のnodenv/volta等を尊重するため低優先度(末尾)に置く=他に無いものだけ補う。

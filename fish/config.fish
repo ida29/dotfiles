@@ -32,9 +32,6 @@ end
 if test -f ~/.backlog_key
     set -gx BACKLOG_API_KEY (cat ~/.backlog_key)
 end
-if test -f ~/.gemini_key
-    set -gx GEMINI_API_KEY (cat ~/.gemini_key)
-end
 if test -f ~/.jira_token
     set -gx JIRA_API_TOKEN (cat ~/.jira_token)
 end
@@ -76,7 +73,13 @@ function cop
 end
 
 function ge
-    gemini --model gemini-3-pro --yolo $argv
+    # Gemini CLI は廃止。後継の Antigravity CLI。
+    # ~/.local/bin/agy を直接叩いて、IDE の同名ラッパーを踏まない。
+    if test -x $HOME/.local/bin/agy
+        $HOME/.local/bin/agy --dangerously-skip-permissions $argv
+    else
+        command agy --dangerously-skip-permissions $argv
+    end
 end
 
 # =============================================================================
@@ -122,4 +125,3 @@ end
 # Added by LM Studio CLI (lms)
 set -gx PATH $PATH /Users/yida/.lmstudio/bin
 # End of LM Studio CLI section
-
