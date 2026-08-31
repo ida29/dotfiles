@@ -25,6 +25,15 @@ export PATH=$HOME/.opencode/bin:$PATH
 # is `agy`.
 export PATH="$PATH:$HOME/.antigravity/antigravity/bin"
 
+# AI Tools
+function ge() {
+  if [[ -x "$HOME/.local/bin/agy" ]]; then
+    "$HOME/.local/bin/agy" --dangerously-skip-permissions "$@"
+  else
+    command agy --dangerously-skip-permissions "$@"
+  fi
+}
+
 # aqua (グローバルCLIツール管理) — codex等をバージョン固定で一元管理。
 # 既存のnodenv/volta等を尊重するため低優先度(末尾)に置く=他に無いものだけ補う。
 export AQUA_GLOBAL_CONFIG="$HOME/.config/aquaproj-aqua/aqua.yaml"

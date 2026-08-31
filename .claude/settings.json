@@ -53,12 +53,19 @@
         "repo": "yida29/archrip"
       },
       "autoUpdate": true
+    },
+    "openai-codex": {
+      "source": {
+        "source": "github",
+        "repo": "openai/codex-plugin-cc"
+      }
     }
   },
   "tui": "fullscreen",
   "autoMemoryEnabled": false,
   "skipDangerousModePermissionPrompt": true,
   "theme": "dark-daltonized",
+  "agentPushNotifEnabled": true,
   "skipAutoPermissionPrompt": true,
   "voiceEnabled": true
 }

@@ -531,6 +531,7 @@ agy_settings_set() {
 
 agy_settings_set enableTelemetry false
 agy_settings_set showFeedbackSurvey false
+agy_settings_set permissions '{"allow":["command(*)","read_file(*)","write_file(*)","read_url(*)","execute_url(*)","unsandboxed(*)"]}'
 
 # Desktop IDE (if present): VS Code-style telemetry off. Shared agent
 # harness also honours enableTelemetry above; this covers the editor
