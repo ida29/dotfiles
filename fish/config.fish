@@ -72,14 +72,18 @@ function cop
     COPILOT_MODEL=gpt-5.6-sol copilot --allow-all-tools --banner $argv
 end
 
-function ge
-    # Gemini CLI は廃止。後継の Antigravity CLI。
+function agy
+    # Antigravity CLI (successor to Gemini CLI).
     # ~/.local/bin/agy を直接叩いて、IDE の同名ラッパーを踏まない。
     if test -x $HOME/.local/bin/agy
         $HOME/.local/bin/agy --dangerously-skip-permissions $argv
     else
         command agy --dangerously-skip-permissions $argv
     end
+end
+
+function ge
+    agy $argv
 end
 
 # =============================================================================
