@@ -544,3 +544,12 @@ if [[ "$OS" == macos ]]; then
       && mv "$tmp_file" "$ide_settings"
   fi
 fi
+
+# -----------------------------------------------------------------------------
+# GitHub Copilot CLI
+# -----------------------------------------------------------------------------
+mkdir -p ~/.copilot
+[ -f ~/.copilot/settings.json ] || printf '{}\n' > ~/.copilot/settings.json
+tmp_file=$(mktemp)
+jq '.model = "gpt-5.6-sol"' ~/.copilot/settings.json > "$tmp_file" && mv "$tmp_file" ~/.copilot/settings.json
+chmod 600 ~/.copilot/settings.json
