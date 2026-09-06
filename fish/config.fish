@@ -47,17 +47,59 @@ starship init fish | source
 # =============================================================================
 
 function claude
-    if test -x $HOME/.local/bin/claude
-        $HOME/.local/bin/claude $argv
-    else if test -x $HOME/.local/share/aquaproj-aqua/bin/claude
-        $HOME/.local/share/aquaproj-aqua/bin/claude $argv
-    else if test -x /Users/yida/.volta/tools/image/node/24.9.0/bin/claude
-        /Users/yida/.volta/tools/image/node/24.9.0/bin/claude $argv
-    else if test -x /opt/homebrew/bin/claude
-        /opt/homebrew/bin/claude $argv
-    else
-        command claude $argv
+    # 探索順は従来どおり (IDE 等の同名ラッパーを踏まないよう実体を直接叩く)
+    set -l bin
+    for c in $HOME/.local/bin/claude \
+             $HOME/.local/share/aquaproj-aqua/bin/claude \
+             /Users/yida/.volta/tools/image/node/24.9.0/bin/claude \
+             /opt/homebrew/bin/claude
+        if test -x $c
+            set bin $c
+            break
+        end
     end
+    test -z "$bin"; and set bin claude
+
+    # OpenTelemetry 送信。送信先は ~/work/claude-code-telemetry の docker-compose が
+    # 立てるローカル collector。bash/zsh 版 setup/claude-telemetry.sh の fish 相当。
+    # 計測せずに起動したいとき:  env -u CLAUDE_CODE_ENABLE_TELEMETRY claude
+    #
+    # ponytail: 送信間隔は 10s のまま。対話セッションは分単位なので届くが、数秒で
+    # 終わる `claude -p` は flush 前に終了して送信されない (実測)。headless も
+    # 計測したくなったら OTEL_METRIC_EXPORT_INTERVAL を下げる。
+    set -l project unknown
+    set -l branch unknown
+
+    # git 管理外で ~/.gitconfig の remote.origin.url を拾わないよう、リポジトリ内
+    # 判定を先に置き、git config には --local を必ず付ける。
+    if git rev-parse --is-inside-work-tree >/dev/null 2>&1
+        set -l url (git config --local --get remote.origin.url)
+        if test -n "$url"
+            # clone 先や worktree のディレクトリ名は環境ごとに割れるので remote 名を優先
+            set project (string replace -r '\.git$' '' (basename $url))
+        else
+            set project (basename (git rev-parse --show-toplevel))
+        end
+        # --abbrev-ref は detached HEAD で文字列 "HEAD" を返すので symbolic-ref を使う
+        set -l b (git symbolic-ref --quiet --short HEAD 2>/dev/null)
+        # OTEL_RESOURCE_ATTRIBUTES は key=value,... 形式なので , と = は潰す
+        test -n "$b"; and set branch (string replace -ra '[^A-Za-z0-9._/-]' _ $b)
+    end
+
+    # OTEL_LOG_TOOL_DETAILS / OTEL_LOG_TOOL_CONTENT / OTEL_LOG_RAW_API_BODIES は
+    # 意図的に設定しない (Bash コマンド全文・応答本文は送らない)。
+    env \
+        CLAUDE_CODE_ENABLE_TELEMETRY=1 \
+        OTEL_METRICS_EXPORTER=otlp \
+        OTEL_LOGS_EXPORTER=otlp \
+        OTEL_EXPORTER_OTLP_PROTOCOL=grpc \
+        OTEL_EXPORTER_OTLP_ENDPOINT=http://localhost:4317 \
+        OTEL_METRIC_EXPORT_INTERVAL=10000 \
+        OTEL_LOGS_EXPORT_INTERVAL=5000 \
+        OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=cumulative \
+        OTEL_LOG_USER_PROMPTS=1 \
+        OTEL_RESOURCE_ATTRIBUTES="project=$project,branch=$branch" \
+        $bin $argv
 end
 
 function cc
