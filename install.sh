@@ -390,7 +390,24 @@ mkdir -p ~/work
 # Claude Code
 # -----------------------------------------------------------------------------
 mkdir -p ~/.claude/output-styles
-ln -sf "$DOTFILES_DIR/.claude/settings.json" ~/.claude/settings.json
+# settings.json is NOT symlinked. Claude Code rewrites model / effort /
+# theme / plugins on use, which used to dirty the git worktree on every
+# host (#4). Seed from the example once; afterwards each host owns its copy.
+if [ ! -f ~/.claude/settings.json ] || [ -L ~/.claude/settings.json ]; then
+  src="$DOTFILES_DIR/.claude/settings.json.example"
+  [ -f "$src" ] || src="$DOTFILES_DIR/.claude/settings.json"
+  if [ -f "$src" ]; then
+    tmp=$(mktemp)
+    # If currently a symlink into the repo, preserve content then replace.
+    if [ -L ~/.claude/settings.json ]; then
+      cp -L ~/.claude/settings.json "$tmp"
+      rm -f ~/.claude/settings.json
+      mv "$tmp" ~/.claude/settings.json
+    else
+      cp "$src" ~/.claude/settings.json
+    fi
+  fi
+fi
 # settings.local.json contains machine-specific paths, so don't symlink it
 # Instead, copy as template if it doesn't exist
 if [ ! -f ~/.claude/settings.local.json ] && [ -f "$DOTFILES_DIR/.claude/settings.local.json" ]; then

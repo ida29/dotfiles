@@ -12,3 +12,7 @@
 
 # runtime artifact, not source
 .claude/hooks/leaked-toolcall-triggers.log
+
+# Claude Code rewrites this on /model /effort /theme etc. Keep the
+# shareable baseline in settings.json.example; install.sh copies it once.
+.claude/settings.json
